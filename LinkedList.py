@@ -146,10 +146,6 @@ class LinkedList:
 
         self.head = prev
 
-
-
-
-
     def __len__(self):
         return self.__size
 
