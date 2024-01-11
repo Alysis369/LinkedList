@@ -8,7 +8,7 @@ class Node:
 class LinkedList:
     def __init__(self, head: Node = None, size: int = 0):
         self.__head = Node(0)
-        self.size = size
+        self.__size = size
         self.head = head
 
     @property
@@ -20,7 +20,7 @@ class LinkedList:
         self.__head.next = head
 
     def insertAtIndex(self, val, index: int):
-        if index > self.size:
+        if index > self.__size:
             raise IndexError
 
         cur = self.__head
@@ -29,16 +29,16 @@ class LinkedList:
 
         cur.next = Node(val, next=cur.next)
 
-        self.size += 1
+        self.__size += 1
 
     def insertAtBegin(self, val):
         self.insertAtIndex(val, 0)
 
     def insertAtEnd(self, val):
-        self.insertAtIndex(val, self.size)
+        self.insertAtIndex(val, self.__size)
 
     def removeAtIndex(self, index: int):
-        if index == 0 or index > self.size:
+        if index == 0 or index > self.__size:
             raise IndexError
 
         cur = self.__head
@@ -47,16 +47,16 @@ class LinkedList:
 
         cur.next = cur.next.next
 
-        self.size -= 1
+        self.__size -= 1
 
     def removeAtBegin(self):
         self.removeAtIndex(0)
 
     def removeAtEnd(self):
-        self.removeAtIndex(self.size)
+        self.removeAtIndex(self.__size)
 
     def updateNode(self, val, index: int):
-        if index == 0 or index > self.size:
+        if index == 0 or index > self.__size:
             raise IndexError
 
         cur = self.__head
@@ -70,7 +70,7 @@ class LinkedList:
         while cur.next:
             if cur.next.val == val:
                 cur.next = cur.next.next
-                self.size -= 1
+                self.__size -= 1
                 return
 
             cur = cur.next
@@ -85,8 +85,73 @@ class LinkedList:
 
         self.head = prev
 
+    def getNode(self, index: int) -> Node:
+        if index == 0 or index > self.__size:
+            raise IndexError
+
+        cur = self.__head
+        for _ in range(index):
+            cur = cur.next
+
+        return cur
+
+    def insertNodeToEnd(self, node: Node):
+        cur = self.head
+
+        while cur.next:
+            cur = cur.next
+
+        cur.next = node
+
+        self.__size += 1
+
+    def containsLoop(self) -> bool:
+        slow, fast = self.head, self.head.next
+
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
+            if slow is fast:
+                return True
+
+        return False
+
+    def getLoopNode(self) -> Node:
+        if not self.containsLoop():
+            raise Exception("No loop is detected on LinkedList")
+
+        slow = fast = node = self.__head
+
+        while True:
+            slow, fast = slow.next, fast.next.next
+            if slow is fast:
+                break
+
+        while node is not slow:
+            node, slow = node.next, slow.next
+
+        return node
+
+    def reverseFirstN(self, n: int):
+        if n == 0 or n > self.__size:
+            raise IndexError
+
+        right = self.head
+        for _ in range(n):
+            right = right.next
+
+        prev, left = right, self.head
+
+        while left is not right:
+            left.next, left, prev = prev, left.next, left
+
+        self.head = prev
+
+
+
+
+
     def __len__(self):
-        return self.size
+        return self.__size
 
     def __iter__(self):
         cur = self.head
