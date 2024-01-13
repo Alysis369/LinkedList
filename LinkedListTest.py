@@ -22,7 +22,7 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(len(ll), len(expected))
 
     def testRemoveAtIndex(self):
-        ll = LinkedList(Node(1, Node(2, Node(3))), 3)
+        ll = LinkedList(Node(1, Node(2, Node(3))))
         ll.removeAtIndex(2)
 
         with self.assertRaises(IndexError):
@@ -51,7 +51,7 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(len(ll), len(expected))
 
     def testInsertAtEnd(self):
-        ll = LinkedList(Node(1, Node(2)), 2)
+        ll = LinkedList(Node(1, Node(2)))
         ll.insertAtEnd(3)
 
         expected = [1, 2, 3]
@@ -64,7 +64,7 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(len(ll), len(expected))
 
     def testUpdateNode(self):
-        ll = LinkedList(Node(1, Node(2, Node(3))), 3)
+        ll = LinkedList(Node(1, Node(2, Node(3))))
         ll.updateNode(4, 2)
 
         expected = [1, 4, 3]
@@ -77,7 +77,7 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(len(ll), len(expected))
 
     def testRemoveVal(self):
-        ll = LinkedList(Node(1, Node(2, Node(3))), 3)
+        ll = LinkedList(Node(1, Node(2, Node(3))))
         ll.removeNode(2)
 
         expected = [1, 3]
@@ -90,7 +90,7 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(len(ll), len(expected))
 
     def testReverse(self):
-        ll = LinkedList(Node(1, Node(2, Node(3))), 3)
+        ll = LinkedList(Node(1, Node(2, Node(3))))
         ll.reverse()
 
         expected = [3, 2, 1]
@@ -104,19 +104,19 @@ class TestLinkedList(unittest.TestCase):
 
     def testGetNode(self):
         node = Node(1)
-        ll = LinkedList(node, size=1)
+        ll = LinkedList(node)
 
         self.assertEqual(node, ll.getNode(1))
 
     def testInsertNodeToEnd(self):
         node = Node(2)
-        ll = LinkedList(Node(1), 1)
+        ll = LinkedList(Node(1))
         ll.insertNodeToEnd(node)
 
         self.assertEqual(node, ll.getNode(2))
 
     def testContainsLoop(self):
-        ll = LinkedList(Node(1, Node(2, Node(3))), 3)
+        ll = LinkedList(Node(1, Node(2, Node(3))))
         self.assertFalse(ll.containsLoop())
 
         node = ll.getNode(2)
@@ -125,7 +125,7 @@ class TestLinkedList(unittest.TestCase):
         self.assertTrue(ll.containsLoop())
 
     def testGetLoopNode(self):
-        ll = LinkedList(Node(1, Node(2, Node(3))), 3)
+        ll = LinkedList(Node(1, Node(2, Node(3))))
         node = ll.getNode(2)
         new_node = Node(4, node)
         ll.insertNodeToEnd(new_node)
@@ -133,7 +133,7 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(node, ll.getLoopNode())
 
     def testReverseFirstN(self):
-        ll = LinkedList(Node(1, Node(2, Node(3, Node(4)))), 4)
+        ll = LinkedList(Node(1, Node(2, Node(3, Node(4)))))
         ll.reverseFirstN(2)
 
         expected = [2, 1, 3, 4]

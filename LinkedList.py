@@ -4,11 +4,11 @@ class Node:
         self.val = val
         self.next = next
 
-
 class LinkedList:
-    def __init__(self, head: Node = None, size: int = 0):
+    def __init__(self, head: Node = None):
         self.__head = Node(0)
-        self.__size = size
+        self.__size = 0
+        # self.__set_custom_head(head)
         self.head = head
 
     @property
@@ -17,6 +17,13 @@ class LinkedList:
 
     @head.setter
     def head(self, head: Node):
+        self.__size = 0
+
+        cur = head
+        while cur:
+            self.__size += 1
+            cur = cur.next
+
         self.__head.next = head
 
     def insertAtIndex(self, val, index: int):
@@ -146,10 +153,6 @@ class LinkedList:
 
         self.head = prev
 
-
-
-
-
     def __len__(self):
         return self.__size
 
@@ -163,8 +166,6 @@ class LinkedList:
         node_str = ''
         for node in self:
             node_str += f"[{node.val}, next={node.next}],"
-        node_str = node_str[0:len(node_str)-1]
+        node_str = node_str[0:len(node_str) - 1]
 
         return f"LinkedList({node_str})"
-
-
