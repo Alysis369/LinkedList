@@ -157,15 +157,20 @@ class LinkedList:
         return self.__size
 
     def __iter__(self):
-        cur = self.head
-        while cur:
-            yield self.head
+        # cur = self.head
+        # while cur:
+        #     yield cur
+        #     cur = cur.next
+
+        cur = self.__head
+        for _ in range(len(self)):
             cur = cur.next
+            yield cur
 
     def __str__(self):
         node_str = ''
         for node in self:
-            node_str += f"[{node.val}, next={node.next}],"
+            node_str += f"\n[{node.val}, next={node.next}],"
         node_str = node_str[0:len(node_str) - 1]
 
         return f"LinkedList({node_str})"
